@@ -4,6 +4,7 @@ A simple API implementing Twilio API
 A Microservice that does only the following task:
 
 **1. Send SMS**
+
 **2. Check SMS Balance**
 
 It's basically a layer on the default API provider by Twilio; A company that provides API to access phone numbers and make actions with them.
