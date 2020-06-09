@@ -10,7 +10,10 @@ from twilio.rest import Client
 #Avoid putting your credentials here, use environment instead!!
 
 account_sid = "ACadd0dabcbecf336727762e6675d6410f"
-auth_token = "f532b89c16a4a759dd0c99c660d54cd3"
+
+#Auth Token expires, get an active one 
+
+auth_token = "1b7a4c2c4dc2f765528022995fe80d0a"
 sender = "+16312914028"
 
 
@@ -30,8 +33,11 @@ app.config["DEBUG"] = True
 def checkBalance():
     response = requests.get(balanceEndPointURI, auth = (account_sid, auth_token))
     data = response.json()
-    del data["account_sid"]
-    return jsonify(data)
+    try:
+        del data["account_sid"]
+        return jsonify(data)
+    except KeyError:
+        return "Unable to check balance, check credentials"
 
 
 
