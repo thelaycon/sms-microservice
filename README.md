@@ -1,5 +1,5 @@
 # HNGi7-SMS-Task
-A simple API implementing Twilio API
+A simple microservice implementing Twilio API
 
 A Microservice that does only the following task:
 
@@ -7,7 +7,7 @@ A Microservice that does only the following task:
 
 **2. Check SMS Balance**
 
-It's basically a layer on the default API provider by Twilio; A company that provides API to access phone numbers and make actions with them.
+It's basically a layer on the default API provided by Twilio; A company that provides API to access phone numbers and make actions with them.
 To send an SMS to a given number with a given message, a POST request should be made to the following endpoint containing the destination phone number in the parameter **"to"** and the given message in the parameter **"message"**.
 
 ```
