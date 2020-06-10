@@ -1,7 +1,7 @@
 # HNGi7-SMS-Task
 A simple microservice implementing Twilio API
 
-It's a simple microservice that does just three tasks
+It's a simple microservice that does just three tasks..
 
 
 **1. Send SMS**
@@ -35,9 +35,9 @@ An example of a simple request using **curl** client. Fetch, Axios, Postman can 
 
 ```
 
-curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/problem+json' -d '{ \ 
-   "message": "Hellow World", \ 
-   "to": "+2349053001561" \ 
+curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{
+   "message": "Hey bro",
+   "to": "+2349053001561"
  }' 'https://sms-microservice.herokuapp.com/api/v1/sms/send'
 
 ```
@@ -54,5 +54,5 @@ https://sms-microservice.herokuapp.com/api/v1/sms/records
 
 ```
 
-This returns a JSON of SMS sent and their respective dates.
+This returns a JSON of SMS sent and their respective dates...
 
