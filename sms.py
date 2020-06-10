@@ -1,4 +1,3 @@
-import os
 import requests
 from twilio.rest import Client
 import sqlite3
@@ -12,12 +11,10 @@ def get_timestamp():
 
 #Avoid putting your credentials here, use environment instead!!
 
-account_sid = os.environ.get("ACCOUNT_SID")
-#Auth Token expires, get an active one 
-
-auth_token = os.environ.get("AUTH_TOKEN")
-
-sender = os.environ.get("SENDER")
+account_sid =  "ACadd0dabcbecf336727762e6675d6410f"
+auth_token =  "1b7a4c2c4dc2f765528022995fe80d0a"
+sender = "+16312914028"
+ 
 
 client = Client(account_sid, auth_token)
 balanceEndPointURI = f"https://api.twilio.com/2010-04-01/Accounts/{account_sid}/Balance.json"
