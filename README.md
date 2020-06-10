@@ -5,8 +5,13 @@ It's a simple microservice that does just three tasks
 
 
 **1. Send SMS**
+
+
 **2. Check balance**
+
+
 **3. Check records of sent SMS.**
+
 
 
 To check balance, one should send a **GET** request to the endpoint:
@@ -25,7 +30,7 @@ https://sms-microservice.herokuapp.com/api/v1/sms/send
 
 ```
 
-An example of a simple request using **curl** client. Fetch, Axios, Postman can be used.
+An example of a simple request using **curl** client. Fetch, Axios, Postman can be used, any client would work as long as you send a valid JSON object.
 
 
 ```
@@ -49,4 +54,5 @@ https://sms-microservice.herokuapp.com/api/v1/sms/records
 
 ```
 
+This returns a JSON of SMS sent and their respective dates.
 
