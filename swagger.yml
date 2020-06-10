@@ -1,6 +1,6 @@
 swagger: "2.0"
 info:
-  description: A swagger file for our SMS microservice
+  description: A swagger generated UI for our SMS microservice
   version: "1.0.0"
   title: SMS REST API
 consumes:
