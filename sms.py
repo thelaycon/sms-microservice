@@ -1,6 +1,7 @@
 import requests
 from twilio.rest import Client
 import sqlite3
+import os
 from datetime import datetime
 
 #Get current date
@@ -11,9 +12,9 @@ def get_timestamp():
 
 #Avoid putting your credentials here, use environment instead!!
 
-account_sid =  "ACadd0dabcbecf336727762e6675d6410f"
-auth_token =  #GET A TOKEN
-sender = "+16312914028"
+account_sid =  os.environ.get("ACCOUNT_SID")
+auth_token =  os.environ.get("AUTH_TOKEN")
+sender = os.environ.get("SENDER")
  
 
 client = Client(account_sid, auth_token)
