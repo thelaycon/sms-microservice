@@ -13,6 +13,8 @@ It's a simple microservice that does just three tasks..
 **3. Check records of sent SMS.**
 
 
+To use the UI, [Click here](https://sms-microservice.herokuapp.com/api/v1/sms/ui/)
+
 
 To check balance, one should send a **GET** request to the endpoint:
 
