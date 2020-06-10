@@ -13,6 +13,7 @@ It's a simple microservice that does just three tasks..
 **3. Check records of sent SMS.**
 
 
+
 To use the UI, [Click here](https://sms-microservice.herokuapp.com/api/v1/sms/ui/)
 
 
@@ -57,4 +58,21 @@ https://sms-microservice.herokuapp.com/api/v1/sms/records
 ```
 
 This returns a JSON of SMS sent and their respective dates...
+
+
+
+**DEPLOYMENT:**
+
+Make sure you get an authorization token from http://twilio.com, an account Sid and a phone number.
+Set the environment variables first.
+
+
+```
+
+export ACCOUNT_SID = "XXXXXXXXXXXXXXXXXXX"
+export AUTH_TOKEN = "XXXXXXXXXXXXXXXXXXXXX"
+export SENDER = "+XXXXXXXXXXXXXXXXXXX"
+
+```
+
 
