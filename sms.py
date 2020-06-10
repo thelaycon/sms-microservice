@@ -12,7 +12,7 @@ def get_timestamp():
 #Avoid putting your credentials here, use environment instead!!
 
 account_sid =  "ACadd0dabcbecf336727762e6675d6410f"
-auth_token =  "1b7a4c2c4dc2f765528022995fe80d0a"
+auth_token =  "7a7b9648a65ad3476490fa4f66dd59c7"
 sender = "+16312914028"
  
 
