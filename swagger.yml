@@ -1,0 +1,88 @@
+swagger: "2.0"
+info:
+  description: A swagger file for our SMS microservice
+  version: "1.0.0"
+  title: SMS REST API
+consumes:
+  - "application/json"
+produces:
+  - "application/json"
+
+basePath: "/api/v1/sms"
+
+# Paths supported by the server application
+paths:
+  /balance:
+    get:
+      operationId: "sms.checkBalance"
+      tags:
+        - "Balance"
+      summary: "The SMS Balance data structure for the microservice application"
+      description: "Read the current SMS balance"
+      responses:
+        200:
+          description: "Successful read balance action"
+          schema:
+            type: "array"
+            items:
+              properties:
+                currency:
+                  type: string
+                balance:
+                  type: string
+  /send:
+    post:
+      operationId: "sms.sendSms"
+      tags: 
+        - "Send SMS"
+      summary: "The SMS POST structure for the microservice application"
+      description: "Send an SMS to a givenphone number"
+      responses:
+        201:
+          description: "Successfully sent message"
+      parameters:
+        - name: details
+          in: body
+          description: SMS to send
+          required: true
+          schema:
+            type: object
+            properties:
+              to:
+                type: string
+              message:
+                type: string
+  /records:
+    get:
+      operationId: "sms.retrieve"
+      tags:
+        - "SMS Records"
+      summary: "The SMS Records data structure for the microservice application"
+      description: "Read all the SMS Records"
+      responses:
+        200:
+          description: "Successful read SMS records"
+          schema:
+            type: "array"
+            items:
+              properties:
+                to:
+                  type: string
+                message:
+                  type: string
+                date:
+                  type: string
+    
+
+
+
+
+
+
+
+
+      
+
+
+    
+
