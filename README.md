@@ -14,51 +14,7 @@ It's a simple microservice that does just three tasks..
 
 
 
-To use the UI, [Click here](https://sms-microservice.herokuapp.com/api/v1/sms/ui/)
-
-
-To check balance, one should send a **GET** request to the endpoint:
-
-```
-https://sms-microservice.herokuapp.com/api/v1/sms/balance
-
-```
-
-To Send SMS, one should make a POST request to the following endpoint with a JSON object containing two parameters **message** and **to** which signifies the "SMS body" and recipient phone number respectively.
-
-
-```
-
-https://sms-microservice.herokuapp.com/api/v1/sms/send
-
-```
-
-An example of a simple request using **curl** client. Fetch, Axios, Postman can be used, any client would work as long as you send a valid JSON object.
-
-
-```
-
-curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{
-   "message": "Hey bro",
-   "to": "+2349053001561"
- }' 'https://sms-microservice.herokuapp.com/api/v1/sms/send'
-
-```
-
-
-It should return a 201 if successful.
-
-To get record of all SMS sent, one should make a **GET** request to the following endpoint.
-
-
-```
-
-https://sms-microservice.herokuapp.com/api/v1/sms/records
-
-```
-
-This returns a JSON of SMS sent and their respective dates...
-
+To use the live version, [Click here](https://sms-microservice.herokuapp.com/api/v1/sms/ui/)
 
 
 **DEPLOYMENT:**
@@ -74,5 +30,57 @@ export AUTH_TOKEN=XXXXXXXXXXXXXXXXXXXXX
 export SENDER=+XXXXXXXXXXXXXXXXXXX
 
 ```
+
+For access to Swagger UI and Docs, visit
+
+```
+
+http://localhost:5000/api/v1/sms/ui
+
+```
+
+
+To check balance, one should send a **GET** request to the endpoint:
+
+```
+https://localhost:5000/api/v1/sms/balance
+
+```
+
+To Send SMS, one should make a POST request to the following endpoint with a JSON object containing two parameters **message** and **to** which signifies the "SMS body" and recipient phone number respectively.
+
+
+```
+
+https://localhost:5000/api/v1/sms/send
+
+```
+
+An example of a simple request using **curl** client. Fetch, Axios, Postman can be used, any client would work as long as you send a valid JSON object.
+
+
+```
+
+curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{
+   "message": "Hey bro",
+   "to": "+2349053001561"
+ }' 'https://localhost:5000/api/v1/sms/send'
+
+```
+
+
+It should return a 201 if successful.
+
+To get record of all SMS sent, one should make a **GET** request to the following endpoint.
+
+
+```
+
+https://localhost:5000/api/v1/sms/records
+
+```
+
+This returns a JSON of SMS sent and their respective dates...
+
 
 
