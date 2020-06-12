@@ -65,8 +65,9 @@ paths:
               schema:
                 type: object
                 example:
-                  okay: hh
-                  currency: USD
+                  to: +2349053001561
+                  message: Hello World
+                  date: 2020-06-12 04:34:42
 
       parameters:
         - in: header
