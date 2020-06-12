@@ -16,9 +16,9 @@ def get_timestamp():
 
 #Avoid putting your credentials here, use environment instead!!
 
-ACCOUNT_SID =  "ACadd0dabcbecf336727762e6675d6410f"#os.environ.get("ACCOUNT_SID")
-AUTH_TOKEN =  "7a7b9648a65ad3476490fa4f66dd59c7"#os.environ.get("AUTH_TOKEN")
-SENDER = "+16312914028"#os.environ.get("SENDER")
+ACCOUNT_SID =  os.environ.get("ACCOUNT_SID")
+AUTH_TOKEN =  os.environ.get("AUTH_TOKEN")
+SENDER = os.environ.get("SENDER")
  
 
 client = Client(ACCOUNT_SID, AUTH_TOKEN)
