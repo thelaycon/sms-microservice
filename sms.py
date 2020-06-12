@@ -1,8 +1,12 @@
 import requests
+import connexion
 from twilio.rest import Client
 import sqlite3
 import os
 from datetime import datetime
+from flask import Response
+from connexion.exceptions import OAuthProblem
+
 
 #Get current date
 def get_timestamp():
@@ -12,16 +16,33 @@ def get_timestamp():
 
 #Avoid putting your credentials here, use environment instead!!
 
-account_sid =  os.environ.get("ACCOUNT_SID")
-auth_token =  os.environ.get("AUTH_TOKEN")
-sender = os.environ.get("SENDER")
+ACCOUNT_SID =  "ACadd0dabcbecf336727762e6675d6410f"#os.environ.get("ACCOUNT_SID")
+AUTH_TOKEN =  "7a7b9648a65ad3476490fa4f66dd59c7"#os.environ.get("AUTH_TOKEN")
+SENDER = "+16312914028"#os.environ.get("SENDER")
  
 
-client = Client(account_sid, auth_token)
-balanceEndPointURI = f"https://api.twilio.com/2010-04-01/Accounts/{account_sid}/Balance.json"
+client = Client(ACCOUNT_SID, AUTH_TOKEN)
+balanceEndPointURI = f"https://api.twilio.com/2010-04-01/Accounts/{ACCOUNT_SID}/Balance.json"
+
+
+#Authentication middlewares
+
+def authenticate(apiKey, required_scopes):
+    if apiKey != AUTH_TOKEN:
+        raise OAuthProblem("Invalid Token")
+    else:
+        return {"apiKey":apiKey}
+
+def validateAccountSid(account_sid):
+    if account_sid != ACCOUNT_SID:
+        raise OAuthProblem("Invalid Account Sid")
+
+
+
 
 
 #Record sent SMS in database
+
 
 def record(to, message):
     #Initialize DB
@@ -33,7 +54,15 @@ def record(to, message):
     conn.commit()
     conn.close()
 
+#Retrieve records function
+
 def retrieve():
+    account_sid = connexion.request.headers["Account-Sid"]
+
+    #Validate Account Sid
+
+    validateAccountSid(account_sid)
+
     #Initialize DB
     conn = sqlite3.connect("sms_db.db")
     cursor = conn.cursor()
@@ -44,37 +73,103 @@ def retrieve():
     return records
 
 
-
-
-#Task 1 *Check sms balance 
+#Check Balance function 
 
 def checkBalance():
-    response = requests.get(balanceEndPointURI, auth = (account_sid, auth_token))
-    data = response.json()
     try:
-        del data["account_sid"]
-        return data
+        account_sid = connexion.request.headers["Account-Sid"]
+        #Validate Account Sid
+
+        validateAccountSid(account_sid)
+
+        #Get balance
+
+        response = requests.get(balanceEndPointURI, auth = (ACCOUNT_SID, AUTH_TOKEN))
+        data = response.json()
+        try:
+            del data["account_sid"]
+            return data
+        except KeyError:
+            raise KeyError
     except KeyError:
-        return "Unable to check balance, check credentials"
+        return Response("Unable to check balance, check credentials", status=403)
 
 
 
-#Task 2 *Send sms
+#Send SMS function
 
-def sendSms(details):
+def sendSms(**kwargs):
+
     #get details
     try:
-        to = details.get("to", None)
-        message = details.get("message", None)
+        body = kwargs['body']
+        to = body['to']
+        message = body['message']
+        account_sid = connexion.request.headers["Account-Sid"]
+
+        #Validate Account Sid
+        
+        validateAccountSid(account_sid)
+
+
+        #Send SMS
+
         sms = client.messages.create(
-            to = to,
-                from_ = sender,
-                body = message
-                )
+                    to = to,
+                    from_ = SENDER,
+                    body = message
+                    )
+
+        #Record SMS to DB
+
+
         if sms.sid:
             record(to, message)
             return f"Message sent successfully to {to} with message id {sms.sid}"
     except KeyError:
         return Response("Invalid credentials", status=403)
+
+
+#JSON Documentations handler
+
+def docs():
+    data = requests.get("http://localhost:5000/v1/openapi.json").json()
+    return data
+
+#Configure Company ID handler
+
+
+def configure(**kwargs):
+    try:
+        body = kwargs["body"]
+        company_id = body["company_id"]
+
+        #Validate Account SID
+        try:
+            account_sid = connexion.request.headers["Account-Sid"]
+            
+
+            validateAccountSid(account_sid)
+        except KeyError:
+            return Response("Invalid Acount Sid")
+
+    except KeyError:
+        return Response("Invalid Company ID")
+
+    conn = sqlite3.connect("sms_db.db")
+    cursor = conn.cursor()
+    sql_statement = f"SELECT * FROM company_record WHERE CompanyID = '{company_id}';"
+    cursor.execute(sql_statement)
+    data = cursor.fetchall()
+
+    if data == []:
+        sql_statement = f"INSERT INTO company_record VALUES('{company_id}');"
+        cursor.execute(sql_statement)
+    else:
+        sql_statement = f"UPDATE company_record SET CompanyID = '{company_id}';"
+        cursor.execute(sql_statement)
+
+    conn.commit()
+    conn.close()
 
 

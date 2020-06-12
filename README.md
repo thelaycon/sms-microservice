@@ -31,11 +31,13 @@ export SENDER=+XXXXXXXXXXXXXXXXXXX
 
 ```
 
+**Note:** All requests to the endpoints should include the Account Sid as **Account-Sid** and authentication token as **Auth-Token** in the headers for authentication.
+
 For access to Swagger UI and Docs, visit
 
 ```
 
-http://localhost:5000/api/v1/sms/ui
+http://localhost:5000/
 
 ```
 
@@ -43,7 +45,7 @@ http://localhost:5000/api/v1/sms/ui
 To check balance, one should send a **GET** request to the endpoint:
 
 ```
-https://localhost:5000/api/v1/sms/balance
+https://localhost:5000/v1/balance
 
 ```
 
@@ -52,7 +54,7 @@ To Send SMS, one should make a POST request to the following endpoint with a JSO
 
 ```
 
-https://localhost:5000/api/v1/sms/send
+https://localhost:5000/v1/send
 
 ```
 
@@ -61,10 +63,10 @@ An example of a simple request using **curl** client. Fetch, Axios, Postman can 
 
 ```
 
-curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' -d '{
+curl -X POST --header 'Content-Type: application/json' --header 'Accept: application/json' --header 'Account-Sid: xxxxxxxxxxxxxxxxx' --header 'Auth-Token: xxxxxxxxxxxxxxxx' -d '{
    "message": "Hey bro",
    "to": "+2349053001561"
- }' 'https://localhost:5000/api/v1/sms/send'
+ }' 'https://localhost:5000/v1/send'
 
 ```
 
@@ -76,11 +78,34 @@ To get record of all SMS sent, one should make a **GET** request to the followin
 
 ```
 
-https://localhost:5000/api/v1/sms/records
+https://localhost:5000/v1/records
 
 ```
 
 This returns a JSON of SMS sent and their respective dates...
+
+
+To configure the API with the Company ID, a **POST** request should be sent to the endpoint:
+
+```
+http://localhost:5000/v1/configure
+
+```
+with a JSON object in this format:
+
+```
+{
+	'company_id': 'HNGi7'
+}
+```
+
+To get the documentation in JSON, a **GET** request to:
+
+```
+http://localhost:5000/v1/documentation
+```
+
+However, this does not require authencation.
 
 
 

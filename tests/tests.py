@@ -1,4 +1,4 @@
-import pytest
+"""import pytest
 import requests
 
 
@@ -26,4 +26,6 @@ def test_getrecords():
 
 
 
+"""
 
+#Commented

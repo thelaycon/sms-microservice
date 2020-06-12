@@ -1,0 +1,163 @@
+openapi: 3.0.0
+info:
+  title: SMS Microservice Docs
+  version: '1.0'
+
+servers:
+  - url: http://localhost:5000/v1
+
+
+paths:
+  /documentation:
+    get:
+      summary: Return the Docs in JSON
+      operationId: sms.docs
+      responses:
+        '200':
+          description: Successfully returned Docs
+        '404':
+          description: Docs Not Found!
+          content:
+            application/json:
+              schema:
+                type: object
+
+
+  /balance:
+    get:
+      summary: Return the Current SMS Balance
+      operationId: sms.checkBalance
+      responses:
+        '200':
+          description: Successfully returned balance
+        '401':
+          description: Invalid Credentials!
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  balance: 54
+                  currency: USD
+      parameters:
+        - in: header
+          name: Account-Sid
+          schema:
+            type: string
+          description: Twilio Account SID
+          required: true
+
+
+      security:
+        - auth_token: []
+
+  /records:
+    get:
+      summary: Return all sent SMS history
+      operationId: sms.retrieve
+      responses:
+        '200':
+          description: Successfully returned sms history
+        '401':
+          description: Invalid Credentials
+          content:
+            application/json:
+              schema:
+                type: object
+                example:
+                  okay: hh
+                  currency: USD
+
+      parameters:
+        - in: header
+          name: Account-Sid
+          schema:
+            type: string
+          description: Twilio Account SID
+          required: true
+
+
+
+      security:
+        - auth_token: []
+
+  /send:
+    post:
+      summary: Endpoint for sending SMS
+      description: Send a JSON to this endpoint containing the neccesary details. See an example.
+      operationId: sms.sendSms
+      responses:
+        '200':
+          description: Successfully sent SMS
+        '401':
+          description: Invalid Credentials!
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                to:
+                  type: string
+                message:
+                  type: string
+              example:
+                to: "+2349053001561"
+                message: Hello World
+
+      parameters:
+        - in: header
+          name: Account-Sid
+          schema:
+            type: string
+          description: Twilio Account SID
+          required: true
+
+
+
+      security:
+        - auth_token: []
+
+
+  /configure:
+    post:
+      summary: Endpoint for configuring Company ID
+      description: Send a JSON to this endpoint containing the company ID. See an example.
+      operationId: sms.configure
+      responses:
+        '200':
+          description: Successfully configured ID
+        '401':
+          description: Invalid Credentials!
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                company_id:
+                  type: string
+              example:
+                company_id: HNGi7
+      parameters:
+        - in: header
+          name: Account-Sid
+          schema:
+            type: string
+          description: Twilio Account SID
+          required: true
+
+      security:
+        - auth_token: []
+
+
+
+components:
+  securitySchemes:
+    auth_token:
+      type: apiKey
+      name: Auth-Token
+      in: header
+      x-apikeyInfoFunc: sms.authenticate
+
+
