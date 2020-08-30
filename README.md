@@ -14,9 +14,6 @@ It's a simple microservice that does just three tasks..
 
 
 
-To use the live version, [Click here](https://sms-microservice.herokuapp.com/api/v1/sms/ui/)
-
-
 **DEPLOYMENT:**
 
 Make sure you get an authorization token from http://twilio.com, an account Sid and a phone number.
