@@ -1,18 +1,5 @@
-# HNGi7-SMS-Task
-A simple microservice implementing Twilio API
-
-It's a simple microservice that does just three tasks..
-
-
-**1. Send SMS**
-
-
-**2. Check balance**
-
-
-**3. Check records of sent SMS.**
-
-
+# SMS Microservice
+A microservice implementing Twilio API for SMS
 
 **DEPLOYMENT:**
 
